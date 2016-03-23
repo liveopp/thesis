@@ -1,0 +1,252 @@
+\chapter{多任务和组稀疏方法}\label{chp:prob_setup}
+本章我们具体地介绍受SSC启发的新算法.
+
+虽然SSC是目前最优秀的子空间聚类算法之一，但是它有两个缺陷：第
+一，SSC 每次只考虑一个点相对于其它点的表示，
+这比较容易受到噪音和异常点的干扰. 如果我们预先知道点\(x_1, x_2, x_3\)
+属于同一类，然后寻找其他能同时表示\(x_1, x_2, x_3\)的点, 这无疑比
+单独考虑\(x_1\)或\(x_2\)或\(x_3\)更稳健. 第二, 在SSC 模型中,
+我们要求表示尽量稀疏, 然而过分稀疏的邻接矩阵, 可能在
+接下来的谱聚类中没有比较好的可分性. 事实上最优的邻接图应该是
+同一子空间上的点之间连接尽量多，不同子空间的点之间连接尽量少.
+如果我们能让表示向量既不对应不同子空间的点又不集中在
+少数几个点上，这样产生的邻接图聚类效果很可能更好.
+
+基于上面的考虑，本文结合压缩感知中的联合稀疏(joint sparse) 模型\cite{yuan2012visual}，
+提出了新的子空间聚类方法，它的核心内容分两步：
+第一步是根据点的空间信息，先将某些点聚在一起，组成若干组.
+第二步是求解自表示系数, 有两种方法:
+可以把一组点作为整体，相对其他点做回归，要求他们被同时表示，
+这是\emph{多任务稀疏子空间聚类}
+(Multi-task Sparse Subspace Clustering, MT-SSC). 也可以依然像SSC那样，
+将一个点用其他点表示，但是采用组稀疏的优化范数,
+得到\emph{组稀疏子空间聚类}(Group Sparse Subspace Clustering, G-SSC).
+两种方法都可以得到表示系数，进而构造邻接矩阵, 最后谱聚类
+
+\section{分组算法} 
+第一步要将数据点分成若干组，尽量使每一组里的点属于同一个子空间.
+为了做到这点最直接的想法是用\(K\)近邻算法, 将每个点和它的邻居分为一组.
+然而如果只考虑数据点之间的欧式距离, 无疑忽略了线性空间的性质.
+所以我们类似于~\cite{heckel2013noisy}, 用两点之间的夹角作为距离度量，即
+\[d(x_i,x_j)=\exp\left\{-\cos^{-1}\left( \frac{|\langle x_i,
+x_j\rangle|}{\|x_i\|_2\|x_j\|_2} \right)\right\}.\]
+不过如果单纯考虑夹角，也只能利用一个维度上的信息, 我们更近一步地定义
+点到点集的投影距离
+\[ d(a, A, r) =  \|a\|_2-\|U^Ta\|_2 \]
+其中\(a \in R^d\)代表一个数据点，\(A\in \R^{d\times m}\)是一组数据点组成的矩阵,
+\(r\)为正整数, \(U\)是对\(A\)做奇异值分解后的前\(\min(r, \rank(A))\)个左奇异向量组成的矩阵.
+\(r\)的大小可以
+事先给定，也可以取\(A\)的有效秩\cite{yan2006general}
+\[
+  r = \argmin_{\tldr} \frac{\sigma_{\tldr+1}^2}{\sum_{i=1}^{\tldr}
+  \sigma_{\tldr}^2} +\kappa \tldr,
+\]
+其中\(\sigma_1,\sigma_2,\cdots,\sigma_m\)是\(A\)的奇异值，\(\kappa\)是和噪音大小有关的参数.
+
+我们从一个点\(x_0\)出发, 在没有什么信息的情况下, 自然取\(k\)个夹角最近邻
+\(x_1, x_2, \ldots, x_k \)为一组，于是邻居集合
+\(\cN := \left\{ x_0, x_1, \ldots, x_k \right\}.\)
+接着用这\(k+1\)个点张成\(r\)维平面, 我们得到投影矩阵\(U\)，再取\(k\)个投影最近邻，更新\(\cN\)和
+\(U\)，如此循环, 退出条件是最大相对误差大于阈值\(\theta\)，即
+\[\max_{x\in \cN} \frac{\|x\|_2-\|U^T x\|_2}{\|x\|_2} > \theta.\]
+于是我们得到计算每个点的拓展最近邻的\autoref{alg:nsn}.
+\begin{algorithm}[tb] \caption{拓展最近邻}\label{alg:nsn}
+  \begin{algorithmic}
+    \State \textbf{输入：} \(n\) 个数据点 \(\cX = \{x_1,\ldots,x_n\}\),
+    \(\cX\)中的某个数据点\(x_0\), 邻居增长数\(k\)，子空间维度\(r\)(或有效秩参数\(\kappa\))，噪音控制参数\(\theta\).
+    \State 初始化：将所有向量归一化，\(U = x_0, \cX = \cX \setminus x_0,
+    \cN=\{x_0\}\) 
+    \Repeat
+    \State{1. } 对每个\(x\in \cX\)计算\(\|U^Tx\|_2\)，取出前\(k\)大的点组成集合\(\cN_0\)
+    \State{2. } \(\cX = \cX \setminus \cN_0, \cN = \cN \cup \cN_0\)
+    \State{3. } \(U\)取为\(\cN\)中所有点组成的矩阵做奇异值分解的前\(r\)个左奇异向量
+    (或取\(r\)为\(\cN\)中点组成矩阵的有效秩)
+    \State{4. } \(\text{err}=1 - \min_{x \in \cN}\|U^T x\|_2\)
+    \Until{\(\text{err}>\theta\)}
+    \State \textbf{输出：} \(x_0\)的拓展最邻居集合\(\cN \setminus \cN_0\)
+    \Comment{有可能只有\(x_0\)自身}
+  \end{algorithmic}
+\end{algorithm}
+
+由于我们引入了阈值\(\theta\), 使得\autoref{alg:nsn} 有一定的自我修正能力.
+如果参数\(k\)取得过大, 或者循环进行多步后, 很可能会在邻居集合\(\cN\)
+中混入其他子空间的点, 这时\(\cN\)中的点就不能很好地分布在一个\(r\)维平面上,
+使得\(\text{err}>\theta\), 然后我们会从\(\cN\)中删去所有上一步加入的点, 这样
+混入的错误点又会被剔除. 
+
+得到每个点的近邻之后，还要把点分成若干组，因为这些近邻之间有重叠, 但是后面的MT-SSC
+和G-SSC要求每个点只能在一个组中. 当然这里可以使用谱聚类等聚类算法, 不过简单
+起见，我们直接采用``先到先得''的原则：先找到一个未分组的点\(x_0\).
+将其近邻集合\(\cN(x_0)\)中没有分组的和它分成一组，再找下一个未分组点，直到分完所有点.
+注意每个点都一定和它邻居集合的子集在一组, 所以如果邻居集合没有包含错误点, 那么分组
+也一定没有错误, 如果邻居集合包含错误点, 也可能会得到正确的分组,
+因为邻居集合有重叠.
+实际计算中，为了消除取点带来的随机性，我们总是按照点的\(\ell_2\)范数从大到小，依次选取.
+对于每个分组, 我们将其所含点的编号组成一个指标集\(\cI \subset [n]\),
+于是分组算法最终可以给出一个指标集族\(\Omega\), 满足
+\begin{gather}
+  \cI_i \cap \cI_j = \emptyset,\quad \forall \,\cI_i, \cI_j \in \Omega\quad \cI_i
+  \neq \cI_j, \label{eq:nointer}\\
+  \bigcup_{\cI\in \Omega} \cI = [n].\label{eq:full} 
+\end{gather}
+这保证了\(\Omega\)是对所有数据点的一个剖分, 从而有后面的多任务和组稀疏方法.
+
+\section{多任务和组稀疏方法}
+先介绍一些记号: 我们用\(X_i\) 表示矩阵\(X\) 的第\(i\)列,
+\(X_{(i)}\)表示矩阵\(X\)的第\(i\)行,
+\(X_{i,j}\)表示矩阵的第\(i\)行第\(j\)列的元素.
+对某个指标集\(\cI\subset [n]\), \(\cI^c:=[n]\setminus \cI\).
+\(x_\cI\)表示向量\(x\)中对应指标集\(\cI\)的部分,
+\(X_\cI\)表示将矩阵\(X\)的列向量按照指标集\(\cI\)取出后组成的子矩阵, 
+\(X_{(\cI)}\)表示将矩阵\(X\)的行向量按照指标集\(\cI\)取出后组成的子矩阵,
+\(X_{\cI, \cJ}\)表示行按指标集\(\cI\)抽出, 列按指标集\(\cJ\)抽出组成的子矩阵. 
+给定满足\eqref{eq:nointer}\eqref{eq:full}的指标集族\(\Omega\),
+定义向量范数\(\|x\|_{\Omega, 1}:=\sum_{\cI \in \Omega} \|x_{\cI}\|_2\),
+矩阵范数\(\|X\|_{\Omega, 1}:=\sum_{i} \|X_i\|_{\Omega, 1}\).
+再定义矩阵范数\(\|X\|_{2, 1}:=\sum_{i} \|X_i\|_2\).
+
+\subsection{MT-SSC}
+
+SSC对每个点\(x_i\)求解\eqref{eq:ssc_noise},
+而有了指标集族\(\Omega\)后, 对于\(\cI\in \Omega\),
+可以得到多列数据组成的矩阵\(X_\cI\), 我们希望找到一些点能同时表示
+\(X_\cI\)的每一列, 即考虑下面的优化问题
+\begin{equation}\label{eq:multi}
+  \begin{gathered}
+    \min_{C}\; \|C^T\|_{2, 1} + \frac{\lambda}{2} \|X_\cI - XC\|_F^2\\
+    \text{s.t.} \quad C_{(\cI)} = \mathbf{0},
+  \end{gathered}
+\end{equation}
+\(C \in \R^{n \times |\cI|}\)是点集\(\{x_i, \forall\, i\in \cI\}\)的表示矩阵,
+\(\ell_{2,1}\)范数的正则化项能使 \(C\)在非零行向量较少, 而非零行向量对应的点
+能同时表示\(X_\cI\)的每一列, 约束条件是为了排除自己表示自己这种平凡情形.
+如果我们所有分组一起考虑, 把\eqref{eq:multi}改写成
+\begin{equation}\label{eq:multi_matrix}
+  \begin{gathered}
+    \min_C\; \|C^T\|_{\Omega, 1} + \frac{\lambda}{2} \|X-XC\|_F^2 \\
+    \text{s.t.} \quad C_{\cI, \cI} = \mathbf{0}, \quad \forall \, \cI \in
+    \Omega,
+  \end{gathered}
+\end{equation}
+其中\(\|\cdot\|_{\Omega, 1}\)为矩阵每列的\(\ell_{\Omega, 1}\)范数加和.
+我们要用\eqref{eq:multi_matrix}的解\(C\)组成邻接矩阵\((|C|+|C^T|)/2\),
+进而做谱聚类. 不过不同于SSC, 我们在每个分组内部缺少邻接关系,
+因此对\(i, j\in\cI\) 取\(C_{i, j} = \max(|C_\cI|)\), 这样就能构造出完整的邻接矩阵.
+MT-SSC同时考虑多个点的回归, 所以应该会比SSC更加稳健, 同时注意到\eqref{eq:multi}
+的解在非零行上应该是稠密的, 则其生成的邻接图在同一子空间内部的连接会更紧密.
+
+\subsection{G-SSC}
+不同于\eqref{eq:ssc_noise}, G-SSC对每个\(x_i\)考虑下面的优化问题
+\begin{equation}
+  \begin{gathered}
+    \min_{c} \; \|c\|_{\Omega, 1} + \frac{\lambda}{2} \|x_i - Xc\|_2^2\\
+    \text{s.t.} \quad [c]_i = 0.
+  \end{gathered}
+  \label{eq:group}
+\end{equation}
+其中\(\cI\)是\(\Omega\)中包含\(i\)的指标集, 由\eqref{eq:nointer}和\eqref{eq:full}
+可知\(\cI\)存在且唯一. \eqref{eq:group}相当于用某些组的点来表示\(x_i\), 相比于
+独立考虑每个点, 这样能减少异常点的干扰, 也能使得到的表示矩阵相对稠密.
+同样地，写出\eqref{eq:group}的矩阵形式
+\begin{equation}
+  \begin{gathered}
+    \min_C\; \|C\|_{\Omega, 1} + \frac{\lambda}{2} \|X-XC\|_F^2 \\
+    \text{s.t.} \quad \diag(C) = \mathbf{0}.
+  \end{gathered}
+  \label{eq:group_matrix}
+\end{equation}
+用\eqref{eq:group_matrix}的解\(C\)组成邻接矩阵\((|C|+|C^T|)/2\), 进而做谱聚类.
+
+注意如果\autoref{alg:nsn} 的参数\(\theta\)取得很小, 那么每个点的最近邻集合
+将只包含自己, 于是MT-SSC和G-SSC将退化成SSC, 所以如果参数选取适当, MT-SSC
+和G-SSC的聚类结果至少不会比SSC差.
+
+\subsection{ADMM算法}
+下面讨论如何求解MT-SSC和G-SSC的优化问题.
+\eqref{eq:multi_matrix} 和 \eqref{eq:group_matrix} 可以写成统一的形式
+\begin{equation}\label{eq:MatrixLasso}
+  \begin{gathered}
+    \min_{C} \; \|C\|_{\Omega}+\frac{\lambda}{2}\|X-XC\|_F^2  \\
+    \text{s.t.} \quad \Bdiag(C)=\mathbf{0},
+  \end{gathered}
+\end{equation}
+其中\(\|\cdot\|_{\Omega}\) 为某个与指标集族\(\Omega\)有关的凸范数,
+对于MT-SSC, \(\|C\|_{\Omega}=\|C^T\|_{\Omega, 1}\), 
+\[
+  \Bdiag(C)=\begin{bmatrix}
+    C_{\cJ_1, \cJ_1}  & \mathbf{0} & \cdots & \mathbf{0} \\
+    \mathbf{0}  & C_{\cJ_2, \cJ_2} & \cdots & \mathbf{0} \\
+    \vdots   &    \vdots    &    \ddots     & \vdots \\
+    \mathbf{0}  &  \mathbf{0} &  \cdots  & C_{\cJ_{|\Omega|},\cJ_{|\Omega|}}
+  \end{bmatrix}
+\]
+其中\(\{\cJ_1, \cJ_2,\ldots,\cJ_{|\Omega|}\}=\Omega\),
+对于G-SSC, \(\|C\|_{\Omega}=\|C\|_{\Omega, 1}, \Bdiag(C) = \diag(C)\).
+
+我们用ADMM算法~\cite{stephen2011distributed} 求解\eqref{eq:MatrixLasso}
+如果适当交换\(X\)列向量的顺序, 将同一组的点排在一起, 
+那么\eqref{eq:MatrixLasso}可以写成下面的等价形式
+\begin{equation}\label{eq:MatrixLasso_modify}
+  \begin{gathered}
+    \min_{C} \; \|C\|_{\Omega}+\frac{\lambda}{2}\|X-XJ\|_F^2 \\
+    \text{s.t.} \quad J=C-\Bdiag(C).
+  \end{gathered}
+\end{equation}
+我们写出\eqref{eq:MatrixLasso_modify}的Lagrangian，并在其上增加一个等价
+的二次惩罚项得到增广Lagrangian
+\begin{multline*}
+  \cL= \|C\|_{\Omega}+\frac{\lambda}{2}\|X-XJ\|_F^2 
+  +\frac{\mu}{2}\|J-C+\Bdiag(C)\|_F^2\\
+  +tr(\Lambda^T(J-C+\Bdiag(C))),
+\end{multline*}
+其中\(\Lambda\)是对偶变量，\(\mu\)是给定参数.为了交替优化
+\(J\)， \(C\) 和 \(\Lambda\) 直到收敛，需要求解 \(\partial \cL/\partial J=0\)
+和 \(\partial \cL/\partial C=0\). 由\(\partial \cL/\partial J=0\) 可得
+\[
+  J=(\lambda X^TX+\mu I)^{-1}\left(\lambda X^TX+\mu C - 
+  \mu\Bdiag(C)-\Lambda\right).
+\]
+另一方面, 虽然\(\cL\)关于\(C\)不可导, 但极值可以用拓展的
+Soft-Threshold 算子~\cite{donoho1995noising}求得.
+先定义
+\begin{equation*}
+  S_\alpha(a) = \begin{cases}
+    \mathbf{0} & \|a\|_2 \le \alpha, \\
+    (\|a\|_2 - \alpha) \frac{a}{\|a\|_2} & \|a\|_2 > \alpha.
+  \end{cases}
+\end{equation*}
+其中\(\alpha\)为给定正数，\(a\)为任意向量.
+再定义\(\sfth_{\alpha,\Omega}:\R^n\rightarrow \R^n\), 若
+\(b =\sfth_{\alpha,\Omega}(a)\), 则\( b_\cI= S_\alpha(a_\cI),
+\, \forall \cI \in \Omega\).
+
+\begin{algorithm}[tb]
+  \caption{求解MT-SSC和G-SSC的优化问题}
+  \label{alg:MatrixSSC}
+  \begin{algorithmic}
+    \State {\bfseries 输入：}
+    \(n\) 个样本点 \(x_1,\ldots,x_n\)，它们组成了数据矩阵\(X\in \R^{d\times
+    n}\)，组别信息\(\Omega\)，参数\(\lambda\) 和 \(\mu\)
+    \State 初始化 \(C=0\), \(J=0\), \(\Lambda=0\)
+    \While{未收敛}
+    \State{1. } 更新 \(J\) 
+    \[J=(\lambda X^TX+\mu I)^{-1}(\lambda X^TX+\mu C-\Lambda).\]
+    \State{2. } 更新 \(C\)
+    \[ C^{'}=\sfth_{\frac{1}{\mu},\Omega}\left(J+\Lambda/\mu\right), \]
+    \[ C=C^{'}-\Bdiag(C^{'}).\]
+    \State{3. } 更新 \(\Lambda\)
+    \[\Lambda=\Lambda+\mu(J-C)\]
+    \EndWhile
+    \State 对MT-SSC要取每组的绝对值最大值将\(C\)补充完整
+    \State {\bfseries 输出：} 最优解\(C\)
+  \end{algorithmic}
+\end{algorithm}
+求解\eqref{eq:multi_matrix}时, 我们将\(\sfth\)作用在矩阵
+\(J+\Lambda/\mu\)的每一个行向量上,
+求解\eqref{eq:group_matrix}时作用于列向量,
+最终得到\autoref{alg:MatrixSSC}.
+注意到 \((\lambda X^TX+\mu I)^{-1}\)
+能被预先算好，这样每次迭代的时间就主要花在计算矩阵乘法上，
+因此MT-SSC，G-SSC花在优化上的时间和SSC几乎相同.
+
+下面我们给出拓展最近邻算法，MT-SSC和G-SSC的一些理论分析，以及数值实验结果.

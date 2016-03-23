@@ -1,0 +1,31 @@
+﻿\begin{cnabstract}
+  子空间聚类是指将一群来自不同低维子空间的数据点按照它们
+  所属的空间分开，将同一空间的点聚成一类.本文在稀疏子空间聚类
+  方法的基础上，尝试更多利用点的空间性质，提出了基于多任务和
+  组稀疏化的新方法.不同于稀疏子空间聚类方法直接将每个点用其他点
+  表示，我们先利用点的空间信息，将点分成一个个小组，每个小组作为
+  一个整体，希望他们被同时表示，或者同时用来表示别的点.
+  这样可以避免只使用一个点带来的不稳定性，更重要的是使随后生成的
+  邻接图既没有错误的边，又不至同类连接过于少，从而方便谱聚类达到更好的
+  效果.我们通过理论分析，得出新方法在一定条件下能够能使邻接图
+  没有错误连接，并且在Hopkins 155数据集和NUS-WIDE数据集上
+  与经典SSC，LRR算法做了比较.
+
+  \keywords{子空间聚类\enskip 大数据\enskip 非监督学习\enskip 多任务\enskip 组稀疏}{O29}
+\end{cnabstract}
+
+\begin{enabstract}
+  In subspace clustering, a group of data points belonging
+  to a union of subspaces are assigned membership to their
+  respective subspaces. This paper persents a novel method
+  that regularizes sparse subspace representation by exploiting the
+  structural sharing between tasks and data points via multitasking
+  and group sparsity. By doing this, our algorithms are able to be more robust
+  without introducing much additional computational cost. The
+  theoretical analysis in this paper shows that under certain conditions
+  exact clustering performance can be guaranteed. We demonstrate
+  the advantage of the framework on Hopkins 155 dataset and NUS-WIDE dataset.
+
+  \enkeywords{Subspace Clustering, Big Data, Unsupervised Learning, Group LASSO,
+  Multitasking}{O29}
+\end{enabstract}
