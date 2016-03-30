@@ -14,11 +14,6 @@
 \ProcessOptions
 \LoadClass[a4paper,zihao=-4,linespread=1.38]{ctexbook} %%A4纸, 小四号, 行距20磅
 \pagestyle{plain} %% 去掉页眉
-%\pagestyle{fancyplain}
-%\fancyhf{}
-%\chead{ \fancyplain{}{\small \leftmark} }
-%\cfoot{ \fancyplain{}{\thepage} }
-%\renewcommand{\headrulewidth}{0.7pt}
 
 % Alter some LaTeX defaults for better treatment of figures:
 % See p.105 of "TeX Unbound" for suggested values.
@@ -59,7 +54,7 @@
 \bibliographystyle{fdubib}%{GBT7714-2005NLang-UTF8}
 \def\bibfont{\zihao{5}} %参考文献字体五号
 \setlength{\bibsep}{0pt plus1pt minus1pt}
-\setlength{\bibhang}{2\ccwd}%Applied only to author-year style
+%\setlength{\bibhang}{2\ccwd}%Applied only to author-year style
 %\RequirePackage[format=hang,labelsep=quad]{caption}
 %\DeclareCaptionFont{c5size}{\wuhao}
 %\captionsetup{labelfont={c5size,bf}}
@@ -115,40 +110,50 @@
 \def\algorithmautorefname{算法}
 
 %% 用来产生封面的命令
-\newcommand{\makefrontcover}[9]{\thispagestyle{empty} %% 去掉页码
-\begin{flushright} 
+\newcommand{\makefrontcover}[8]{\thispagestyle{empty} %% 去掉页码
+\begin{flushright}
+  {
   \fontsize{9pt}{11pt}\selectfont
   \begin{tabular}{rl}
-	学校代码：& #1 \\
-	学\hspace{2em}号：& #2 \\
+	学校代码：& 10246 \\
+	学\hspace{2em}号：& #1 \\
   \end{tabular}
+  }
 \end{flushright}
-\vspace{1.2cm}
+\vspace{1.5cm}
 \begin{center}
   \includegraphics[width=7.68cm,height=2.86cm]{fudan.eps}\\
   \vspace{0.6cm}
+  {
   \fontsize{22pt}{22pt}\selectfont
   硕\hspace{.5em}士\hspace{.5em}学\hspace{.5em}位\hspace{.5em}论\hspace{.5em}文\\
+  }
   \vspace{0.4cm}
+  {
   \fontsize{15pt}{15pt}\selectfont
   （学术学位）\\
+  }
   \vspace{1.8cm}
+  {
   \fontsize{18pt}{18pt}\selectfont
-  \textbf{#3}\\
+  \textbf{#2}\\
+  }
   \vspace{0.5cm}
+  {
   \fontsize{14pt}{14pt}\selectfont
-  \textbf{#4}
+  \textbf{#3}
+  }
 \end{center}
-\vspace{3.0cm}
+\vspace{2.8cm}
 \begin{flushright}
-  \fontsize{14pt}{24pt}\selectfont
+  {\fontsize{14pt}{24pt}\selectfont
   \begin{tabular}{p{90pt}p{200pt}}
-	院\hspace{3.5em}系：& #5 \\
-	专\hspace{3.5em}业：& #6 \\
-	姓\hspace{3.5em}名：& #7 \\
-	指\hspace{.5em}导\hspace{.5em}教\hspace{.5em}师：& #8 \\
-	完\hspace{.5em}成\hspace{.5em}日\hspace{.5em}期：& #9 \\
-  \end{tabular}
+	院\hspace{3.5em}系：& #4 \\
+	专\hspace{3.5em}业：& #5 \\
+	姓\hspace{3.5em}名：& #6 \\
+	指\hspace{.5em}导\hspace{.5em}教\hspace{.5em}师：& #7 \\
+	完\hspace{.5em}成\hspace{.5em}日\hspace{.5em}期：& #8 \\
+  \end{tabular}}
 \end{flushright}\newpage
 }
 
@@ -168,48 +173,48 @@
 }
 
 %% 用来产生封底的命令
-\newcommand{\makebackcover}{\newpage\thispagestyle{empty} %% 去掉页码
- \begin{center}
-   \textbf{\Large 复旦大学} \\
-   \textbf{\Large 学术论文独创性声明}
- \end{center}
- \vspace{1em}
+\newcommand{\makebackcover}{\newpage\thispagestyle{empty}
+  {
+  \linespread{2}\selectfont
+    \begin{center}
+  \textbf{\Large 复旦大学} \\
+    \textbf{\Large 学术论文独创性声明}
+  \end{center}
+  \vspace{1em}
 
- 本人郑重声明:所呈交的学位论文,是本人在导师的指导下,独立进行研究
- 工作所取得的成果，论文中除特别标注的内容外，不包含任何ަ他个人或机构已
- h:过的研究成果，对本研究做出重要贡献的个人和集体，均已在论文
- 中作了明确的声明并表示了谢意，声明的法律结果由本人承担，
+  本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究
+  工作所取得的成果。论文中除特别标注的内容外，不包含任何其他个人或机构
+  已经发表或撰写过的研究成果。对本研究做出重要贡献的个人和集体，均已在论文
+  中作了明确的声明并表示了谢意。声明的法律结果由本人承担。
+  \vspace{1em}
+  \begin{flushright}
+  作者签名: \underline{\includegraphics[width=6em]{myname}}
+  \hspace{0.5em} 日期: \underline{\includegraphics[width=6em]{date}}
+  \end{flushright}
+  \vspace{5em}
+  \begin{center}
+  \textbf{\Large 复旦大学} \\
+    \textbf{\Large 学位论文使用授权声明}
+  \end{center}
+  \vspace{1em}
 
- \vspace{2em}
- \begin{flushright}
-   作者签名: \underline{\hspace{6em}}
-   \hspace{1em} 日期: \underline{\hspace{6em}}
- \end{flushright}
- \vspace{5em}
-
- \begin{center}
-   \textbf{\Large 复旦大学} \\
-   \textbf{\Large 学位论文使用授权声明}
- \end{center}
- \vspace{1em}
-
- 本人完全了解复旦大学有关收藏和利用博士ǃ硕士学位论文的规定，
- 即：学校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和
- 电子版本;允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，
- 可以采用影印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此规定。
-
- \vspace{2em}
- \begin{flushright}
-   作者签名: \underline{\hspace{6em}}
-   \hspace{1em} 导师签名: \underline{\hspace{6em}}\hspace{1em}
-   日期:\underline{\hspace{6em}}
- \end{flushright}
+  本人完全了解复旦大学有关收藏和利用博士、硕士学位论文的规定，
+  即：学校有权收藏、使用并向国家有关部门或机构送交论文的印刷本和
+  电子版本;允许论文被查阅和借阅；学校可以公布论文的全部或部分内容，
+  可以采用影印、缩印或其它复制手段保存论文。涉密学位论文在解密后遵守此规定。
+  \vspace{1em}
+  \begin{flushright}
+  作者签名: \underline{\includegraphics[width=6em]{myname}}
+  \hspace{0.5em} 导师签名: \underline{\includegraphics[width=6em]{zname}}
+  \hspace{0.5em} 日期: \underline{\includegraphics[width=6em]{date}}
+  \end{flushright}
+  }
 }
 
 %Abstracts and thanks
 \newcommand{\keywords}[2]{
-  \vspace{3.5ex}\noindent \textbf{【关键词】~} #1 \\
-  \textbf{【中图分类号】~} #2
+  \vspace{3.5ex}\noindent \textbf{关键词:~} #1 \\
+  \textbf{中图分类号:~} #2
 }
 \newcommand{\enkeywords}[2]{
   \vspace{3.5ex}\noindent \textbf{Keywords:~} #1 \\

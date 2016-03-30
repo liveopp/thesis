@@ -13,7 +13,7 @@ all: main.pdf
 main.pdf: main.tex
 	latexmk -xelatex -synctex=1 -shell-escape -use-make $^
 show: main.pdf
-	mupdf main.pdf &
+	open main.pdf
 clean:
 	latexmk -c
 	-rm *.bbl *.loa

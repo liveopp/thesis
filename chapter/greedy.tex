@@ -8,7 +8,7 @@
 
 \section{记号与模型}
 先介绍一些本章将用到的记号:
-对矩阵\(X\in\R^{d\times n}\)和指标集\(\cI \subset [n]\)
+对矩阵\(X\in\R^{d\times n}\)和指标集\(\cI \subset [n]\),
 我们用\(X_{\cI\rightarrow 0}\)表示将\(\cI\)对应的列置为零后的矩阵,
 如
 \[
@@ -17,15 +17,15 @@
 \]
 令指标集\(\cI_\ell\)表示子空间\(\cS_\ell\)包含点的编号,
 即\(y_i\in \cS_\ell, \forall i\in \cI_\ell\).
-简记\(X_\cI^{(\ell)}:=X_{\cI\cap\cI_\ell}, X_{\cI^c}^{(\ell)}:=X_{\cI^c\cap \cI_\ell}\),
-同理\(Y_\cI^{(\ell)}:=Y_{\cI\cap \cI_\ell}, Y_{\cI^c}^{(\ell)}:=Y_{\cI^c\cap
+简记\(X_\cI^{(\ell)}:=X_{\cI\cap\cI_\ell}, X_{\cI^c}^{(\ell)}:=X_{\cI^c\cap \cI_\ell}\).
+同理, \(Y_\cI^{(\ell)}:=Y_{\cI\cap \cI_\ell}, Y_{\cI^c}^{(\ell)}:=Y_{\cI^c\cap
 \cI_\ell}\),
 注意 \(\cI^c \cap \cI_\ell = \cI_\ell \setminus \cI\), 所以
 \(X_{\cI^c}^{(\ell)} = X_{\cI_\ell \setminus \cI}\),
 即表示取出子空间\(\cS_\ell\)中的点, 除非编号在\(\cI\)中.
 花体字母 \(\cX\) 表示矩阵\(X\)的所有列向量组成的集合, \(\cX_\ell\)表示矩阵\(X_{\cI_\ell}\)
 所有列向量组成的集合, 同理有\(\cY\)和\(\cY_\ell\).
-用\(\cP(X)\) 表示矩阵\(X\)所有列向量张成的对称凸包，即
+用\(\cP(X)\) 表示矩阵\(X\)所有列向量张成的对称凸包,即
 \(\cP(X) = \mathrm{conv}(\pm \cX)\).简记
 \(\cP_{\cI^c}^{(\ell)} := \mathcal{P}(X_{\cI^c}^{(\ell)}),
 \cQ_{\cI^c}^{(\ell)} :=\mathcal{P}(Y_{\cI^c}^{(\ell)})\).
@@ -34,21 +34,21 @@
 我们考虑两种不同的数据模型:\emph{确定性模型}和\emph{半随机模型}\cite[1.4.1]{soltanolkotabi2012geometric}.
 在确定性模型中, 无噪音数据点和子空间都是任意给定的, 噪音大小受到控制.
 而半随机模型假设每个无噪音数据点\(y_i\)在子空间\(\cS_\ell\)中独立均匀分布.
-\autoref{sec:proof_greedy}的分析基于半随机模型,
-\autoref{sec:proof_multi}和\autoref{sec:proof_group}基于确定性模型,
-同时在本章中始终假设\(y_i\)是单位向量 (单位化的条件能使后面的证明叙述简洁，
-只需要对条件稍作修改我们的结论就能拓展到一般情形).
+\autoref{sec:proof_greedy} 的分析基于半随机模型,
+\autoref{sec:proof_multi} 和\autoref{sec:proof_group} 基于确定性模型,
+同时在本章中始终假设\(y_i\)是单位向量 (单位化的条件能使后面的证明叙述简洁,
+只需要对条件稍作修改, 我们的结论就能拓展到一般情形).
 
 \section{拓展最近邻的理论分析}\label{sec:proof_greedy}
-在\autoref{alg:nsn} 中，每执行一次循环, 新加入的点都会影响投影平面，
-导致理论分析比较困难，因此我们只能给出执行第一次循环，即\(U=x_0\)时
-算法的正确性条件（每个点的拓展最近邻都和自身在同一子空间）.
+在\autoref{alg:nsn} 中,每执行一次循环, 新加入的点都会影响投影平面,
+导致理论分析比较困难,因此我们只能给出执行第一次循环,即\(U=x_0\)时
+算法的正确性条件(每个点的拓展最近邻都和自身在同一子空间).
 
-我们假设样本点满足\emph{半随机模型}，即每个子空间是确定的，
-但是数据点在每个子空间中随机生成的.进一步地，
-由于数据点都是单位向量，因此它们独立均匀采样于各自子空间的单位球.
-简单起见，我们假定每个子空间的维度和点数相同，即\(d_0:= d_1=\cdots=d_L,
-n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
+我们假设样本点满足\emph{半随机模型},即每个子空间是确定的,
+但是数据点在每个子空间中随机生成. 进一步地,
+由于数据点都是单位向量,因此它们独立均匀采样于各自子空间的单位球.
+简单起见,我们假定每个子空间的维度和点数相同,即\(d_0:= d_1=\cdots=d_L,
+n_0:= n_1=\cdots=n_L\),且不考虑噪音.
 
 令\(D_i\in \R^{d\times d_0}, i\in [L]\)为子空间\(\cS_i\)的正交基组成的矩阵.两个
 子空间的\emph{相似度}定义为
@@ -56,27 +56,27 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
   \aff(i,j) := \frac{\|D_i^\top D_j\|_F}{\sqrt{d_0}} \in [0, 1].
 \end{align*}
 子空间 \(\cS_i\) 和 \(\cS_j\) 完全一样当且仅当 \(\aff(i,j) = 1\).
-若 \(\aff(i,j) = 0\)，那么 \(\cS_i\) 中的任意向量垂直于 \(\cS_j\).
+若 \(\aff(i,j) = 0\),那么 \(\cS_i\) 中的任意向量垂直于 \(\cS_j\).
 我们定义最大相似度为
 \[ \max \aff := \max_{i,j \in [L], i \neq j} \aff(i,j) \in [0,1].\]
 
-根据以上假设,我们共有 \(n = n_0 L\) 个点，每个点 \(y_i\)（无噪音的数据点用\(y\)表示）
-独立同分布地均匀采样于\(\S^{d-1} \cap \cS_{\ell_i}\) ，
-\(\S^{d-1}\) 是 \(\R^d\) 中的单位球，\(\ell_i\)是\(y_i\)所属子空间的编号，于是
+根据以上假设,我们共有 \(n = n_0 L\) 个点,每个点 \(y_i\)(无噪音的数据点用\(y\)表示)
+独立同分布地均匀采样于\(\S^{d-1} \cap \cS_{\ell_i}\) ,
+\(\S^{d-1}\) 是 \(\R^d\) 中的单位球,\(\ell_i\)是\(y_i\)所属子空间的编号,于是
 \[
   y_i = D_{\ell_i} w_i ,\quad w_i \sim \Unif(\S^{d_0-1}) ,\quad
   \forall i \in [N].
 \]
 相当于每个\(y_i\)都是由低维空间的\(w_i\)生成的.
-我们要证明在某些条件下，对点\(y_i\)，当\(U=y_i\)时，
-它的\(k\)个投影最近邻有\emph{较大概率}和\(y_i\)在同一子空间中.
-比如对于点\(y_1\)，就要求
+我们要证明在某些条件下,对点\(y_i\),
+它的\(k\)个夹角最近邻有\emph{较大概率}和\(y_i\)在同一子空间中.
+比如对于点\(y_1\), 就要求
 \begin{equation}
-  |y_1^T y_k|>|y_1^T y_j| \quad \forall j \in \{j:\ell_j \ne \ell_1\},
+  |y_1^T y_k|>|y_1^T y_j| \quad \forall j \in \{h:\ell_h \ne \ell_1\},
   \label{eq:greedy_ineq}
 \end{equation}
 其中 \(y_k\) 为\(\ell_1\)类中在\(y_1\)上投影第\(k\)大的点.
-因此我们要得到\eqref{eq:greedy_ineq}左边的下界和右边的上界.
+因此我们要得到\eqref{eq:greedy_ineq} 左边的下界和右边的上界.
 
 \subsection{异类投影的上界}
 我们希望和\(y_1\)不同子空间的点\(y_j\)在\(y_1\)上的投影
@@ -86,11 +86,11 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
 
 \begin{lemma} \label{lem:expectation}
   若 \(u \sim \Unif(\mathbb{S}^{d-1})\) 和任意矩阵 
-  \(A \in \mathbb{R}^{m \times d}\)，我们有
+  \(A \in \mathbb{R}^{m \times d}\),我们有
   \[ \E[\|Au\|_2^2] = \frac{1}{d} \|A\|_F^2. \]
 \end{lemma}
 \begin{proof}
-令 \(A = U \Sigma V^T\) 为 \(A\) 的奇异值分解，于是
+令 \(A = U \Sigma V^T\) 为 \(A\) 的奇异值分解,于是
 \begin{align*}
   \E[\|Au\|_2^2] &= \E[\|U \Sigma V^T u\|_2^2]= \E[\|\Sigma V^Tu\|_2^2] 
   = \E[\|\Sigma u\|_2^2]\\
@@ -99,13 +99,13 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
 \end{align*}
 因为\(V\)是正交阵, 所以\(u\sim V^T u\), 于是\(\E[\|\Sigma V^Tu\|_2^2]
 =\E[\|\Sigma u\|_2^2]\). 而\(\E[[u]_i^2] = \frac{1}{d}\), 
-是因为\(u\)的每个分量对称, 期望相同, 同时\(\sum_{i=1}^d \E[ [u]_i^2] = 1 \)，
+是因为\(u\)的每个分量对称, 期望相同, 同时\(\sum_{i=1}^d \E[ [u]_i^2] = 1 \),
 \end{proof}
 
 下面介绍著名的L\'{e}vy引理\cite[页6]{ledoux2005concentration}.
 \begin{lemma}\label{lem:measureconc}
   若 \(u \sim \Unif(\mathbb{S}^{d-1}), f:\S^{d-1}\rightarrow
-  \R\)，且Lipschitz连续，即
+  \R\),且Lipschitz连续,即
   \[|f(a)-f(b)|\le \eta\|a-b\|_2 \quad \forall\, a, b\in \S^{d-1},\]
   其中\(\eta\)是Lipschitz常数,于是
   \begin{align*} 
@@ -119,7 +119,7 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
 根据L\'{e}vy引理可得一个常用的推论.
 \begin{corollary} \label{cor:mean_median}
   若 \(u \sim \Unif(\mathbb{S}^{d-1}), f:\S^{d-1}\rightarrow
-  \R\)，且Lipschitz连续，即
+  \R\),且Lipschitz连续,即
   \[|f(a)-f(b)|\le \eta\|a-b\|_2 \quad \forall a, b\in \S^{d-1},\]
   其中\(\eta\)是Lipschitz常数,我们有
   \begin{align}
@@ -128,7 +128,7 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
   \end{align}
 \end{corollary}
 \begin{proof}
-  由\autoref{lem:measureconc}可得
+  由\autoref{lem:measureconc} 可得
   \[\Pr\left\{|f(u)-M_f|>\alpha\right\} \le 2 \exp \left(
   -\frac{d}{2}\cdot \frac{\alpha^2}{\eta^2} \right).\]
   于是
@@ -144,10 +144,10 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
 若令\(A:=D_j^T D_1, f(w_1):=\|D_j^T D_1 w_1\|_2, w_1\sim \Unif(\S^{d_0})\),
 我们希望\(\|A w_1\|_2\le c(\maff)\)有较大概率成立,
 \(c(\maff)\)是依赖\(\maff\)的某个常数.
-由\autoref{lem:expectation}可知\(\|A w_1\|_2\)的期望与\(\|A\|_F\)有关，
+由\autoref{lem:expectation} 可知\(\|A w_1\|_2\)的期望与\(\|A\|_F\)有关,
 而\(\|A\|_F=\|D_1^T D_j\|_F\)被\(\maff\)控制.
-于是我们结合\autoref{lem:measureconc} 和\autoref{cor:mean_median}
-得到\autoref{lem:upper}.
+于是我们结合\autoref{lem:measureconc} 和\autoref{cor:mean_median} 
+得到\autoref{lem:upper}. 
 \begin{lemma} \label{lem:upper}
   对\(u \sim \Unif(\S^{d-1})\)和任意矩阵\(A\in \R^{m\times d}\),则
   \[
@@ -155,10 +155,10 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
     \left (\sqrt{\frac{2\pi}{d}}+\delta\right )\|A\|_2\right\} > 1- \exp \left(
     -\frac{d}{2} \delta^2 \right),
   \]
-  对任意\(\delta>0\)成立
+  对任意\(\delta>0\)成立.
 \end{lemma}
 \begin{proof}
-  令\(f(u):=\|Au\|_2\),则\(f(u)\) Lipschitz连续,其Lipschitz常数为\(\eta:=\|A\|_2\),
+  令\(f(u):=\|Au\|_2\),则\(f(u)\) Lipschitz连续,其Lipschitz常数\(\eta:=\|A\|_2\),
   于是对任意\(\delta>0\)有
   \begin{align*}
     \Pr \left\{ f(u) > \frac{\|A\|_F}{\sqrt{d}} + 
@@ -170,16 +170,16 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
     &\le \Pr \left\{ f(u) > M_f+\delta\eta \right\}\\
     &\le \exp\left( -\frac{d}{2}\delta^2 \right).
   \end{align*}
-  第一个等号由\autoref{lem:expectation}, \(\E[f^2(u)]= \|A\|_F^2/d\),
+  第一个等号由\autoref{lem:expectation},  \(\E[f^2(u)]= \|A\|_F^2/d\),
   第一个不等号是由Jensen不等式, \(\E[f^2(u)]\ge (\E[f(u)])^2\),
-  第二个不等号由\autoref{cor:mean_median},第三个不等号由\autoref{lem:measureconc},
+  第二个不等号由\autoref{cor:mean_median}, 第三个不等号由\autoref{lem:measureconc}, 
   取\(\alpha=\delta\eta\). 最后再取互补事件即可.
 \end{proof}
 
 \subsection{同类投影的下界}
 对于与\(y_1\)同类的点我们要考察第\(k\)大投影值的下界.
 \begin{lemma}[\cite{ball1997elementary}引理~2.2,2.3]\label{lem:spherical_cap}
-  对 \(u \sim \Unif(\S^{d-1})\) 和任意固定的向量 \(a\)，我们有
+  对 \(u \sim \Unif(\S^{d-1})\) 和任意固定的向量 \(a\),我们有
   \begin{equation*}
     \left( \frac{1-\varepsilon}{2} \right)^{\frac{d-1}{2}} \le
     \Pr\left\{|a^Tu|>\epsilon \|a\|_2\right\} \le 2e^{\frac{-d\epsilon^2}{2}}
@@ -215,22 +215,22 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
     \frac{1-\varepsilon}{2}\right)^{\frac{d-1}{2}} (n-k+1) \right]\\
     &= \exp\left( -\delta \right),
   \end{align*}
-  其中我们用了\autoref{lem:spherical_cap},\(\binom{n}{k}\le
+  其中我们用了\autoref{lem:spherical_cap}, \(\binom{n}{k}\le
   (\frac{ne}{k})^k\) 和 \(1+x\le e^x, \forall x\).
   再取互补事件即可得证.
 \end{proof}
 
 \begin{remark}
-  由于子空间的维度比较低, 且\(k\ll n\), 所以满足\autoref{lem:projbound_lower}
+  由于子空间的维度比较低, 且\(k\ll n\), 所以满足\autoref{lem:projbound_lower} 
   的\(\delta\) 很可能存在.
 \end{remark}
 
 \subsection{正确分组条件}
-我们最终可以得出\autoref{thm:nsn}，表明对于半随机模型, 
-当子空间之间分离程度较好时, \autoref{alg:nsn} 的第一次
+我们最终可以得出\autoref{thm:nsn}, 表明对于半随机模型, 
+当子空间之间分离程度较好时,\autoref{alg:nsn} 的第一次
 循环在\emph{一定概率}下正确.
 \begin{theorem} \label{thm:nsn}
-  对于半随机模型，若存在\(\delta_1, \delta_2, \delta_3 >0\) 使得
+  对于半随机模型,若存在\(\delta_1, \delta_2, \delta_3 >0\) 使得
   \[\maff \le \frac{1-2\left( \frac{k\log \frac{(n_0-1)e}{k}+ \delta_1}
   {n_0-k} \right)^{\frac{2}{d_0-1}}}{\left( 1+\sqrt{2\pi}+\sqrt{d_0}\delta_3\right)\delta_2}, \]
   则每个点与其\(k\)个夹角最近邻都属于同一子空间的概率不小于
@@ -241,9 +241,9 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
   \]
 \end{theorem}
 \begin{proof}
-  不失一般性地，我们考虑点\(y_1\) ，如果要满足的条件
+  不失一般性地,我们考虑点\(y_1\) ,如果要满足的条件
   \begin{align}
-    |y_1^T y_i|>|y_1^T y_j| \quad \forall j \in \{j:\ell_j \ne \ell_1\},
+    |y_1^T y_i|>|y_1^T y_j| \quad \forall j \in \{h:\ell_h \ne \ell_1\},
     \label{eq:cond}
   \end{align}
   其中 \(y_i\) 为\(\ell_1\)类中在\(y_1\)上投影第\(k\)大的点.由于
@@ -254,8 +254,8 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
       |w_1^T D_1^T D_{\ell_i}w_i| & \ell_i \ne \ell_1
     \end{cases}
   \end{align*}
-  所以\eqref{eq:cond}的左边就是\(n_0-1\)个\(\S^{d_0-1}\)上的均匀采样点在
-  \(w_1\)上投影的第\(k\)大值\(\alpha^{(k)}\)，由于\(\maff\ge 0\), 所以\(\delta_1\)
+  所以\eqref{eq:cond} 的左边就是\(n_0-1\)个\(\S^{d_0-1}\)上的均匀采样点在
+  \(w_1\)上投影的第\(k\)大值\(\alpha^{(k)}\),由于\(\maff\ge 0\), 所以\(\delta_1\)
   满足\autoref{lem:projbound_lower} 的条件, 有不小于\(1-\exp(-\delta_1)\)
   的概率
   \begin{equation}
@@ -264,12 +264,12 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
     \right)^{\frac{2}{d_0-1}}\right)
     \label{eq:left}
   \end{equation}
-  成立.而根据\autoref{lem:spherical_cap}
+  成立.而根据\autoref{lem:spherical_cap} 
   \begin{equation} \label{eq:right1}
     |w_1^T D_1^T D_{l_j}w_i| \le \delta_2 \|D_{l_j}^T D_1 w_1\|_2
   \end{equation}
   成立的概率不小于\(1-2\exp(\frac{-d_0 \delta_2^2}{2})\).
-  进一步地，根据\autoref{lem:upper}，有不小于\(1-\exp(\frac{-d\delta_3^2}{2})\)
+  进一步地,根据\autoref{lem:upper}, 有不小于\(1-\exp(\frac{-d\delta_3^2}{2})\)
   的概率有
   \begin{align}
     \|D_{l_j}^T D_1 w_1\|_2 &\le \frac{1}{\sqrt{d_0}} \|D_{l_j}^TD_1\|_F +
@@ -280,7 +280,7 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
     \right).
     \label{eq:right2}
   \end{align}
-  结合\eqref{eq:left}，\eqref{eq:right1}和\eqref{eq:right2}，即得证.
+  结合\eqref{eq:left}, \eqref{eq:right1} 和\eqref{eq:right2}, 即得证.
 \end{proof}
 
 如果分组算法能给出正确的分组结果, 那么我们将得到指标集族\(\Omega\), 同时满足
@@ -297,4 +297,4 @@ n_0:= n_1=\cdots=n_L\)，且不考虑噪音.
 \]
 即包含指标集都指向\(\cS_\ell\)中的点.
 \autoref{sec:proof_group} 和\autoref{sec:proof_group} 的分析都将基于
-满足\eqref{eq:nosame}的\(\Omega\).
+满足\eqref{eq:nosame} 的\(\Omega\).
