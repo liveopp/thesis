@@ -108,7 +108,6 @@ x_j\rangle|}{\|x_i\|_2\|x_j\|_2} \right)\right\}.\]
 再定义矩阵范数\(\|X\|_{2, 1}:=\sum_{i} \|X_i\|_2\).
 
 \subsection{MT-SSC}
-
 SSC对每个点\(x_i\)求解\eqref{eq:ssc_noise}, 
 而有了指标集族\(\Omega\)后, 对于\(\cI\in \Omega\),
 可以得到多列数据组成的矩阵\(X_\cI\), 我们希望找到一些点能同时表示
@@ -208,7 +207,8 @@ MT-SSC同时考虑多个点的回归, 所以应该会比SSC更加稳健, 同时�
   J=(\lambda X^TX+\mu I)^{-1}\left(\lambda X^TX+\mu C - 
   \mu\Bdiag(C)-\Lambda\right).
 \]
-另一方面, 虽然\(\cL\)关于\(C\)不可导, 但极值可以用拓展的
+另一方面, 因为\(\|\cdot\|_2\)在零点梯度不连续,
+所以\(\cL\)关于\(C\)不可导, 但极值可以用拓展的
 Soft-Threshold 算子~\cite{donoho1995noising}求得.
 先定义
 \begin{equation*}

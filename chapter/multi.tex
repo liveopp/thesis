@@ -491,16 +491,16 @@ y_i^T y_j=\left\|\left[ Y_{\cI^c}^{(\ell)}\right]^T Y_\cI\right\|_\infty ,
 \subsection{自表示定理}
 将上面几小节的内容总结一下可以得到MT-SSC的自表示定理
 \begin{theorem}\label{thm:mt_SEP}
-  在带噪音的确定性模型下,若给定指标集\(\Omega\), 满足\eqref{eq:nointer} 
-\eqref{eq:full} 和\eqref{eq:nosame},  且\(|\cI|=m, \, \forall\, \cI \in \Omega\).
-  对任意\(\ell \in [L]\), 若\(\mu(\cX_\ell)<1-\delta_1\), \(\min_{\cI\in
+  在带噪音的确定性模型下, 若给定指标集族\(\Omega\), 满足 \eqref{eq:nointer} 
+  \eqref{eq:full} 和 \eqref{eq:nosame}, 且\(|\cI|=m, \, \forall\, \cI \in \Omega\). 对任意\(\ell \in [L]\),
+  若\(\mu(\cX_\ell)<1-\delta_1\), \(\min_{\cI\in
   \Omega_\ell} r\left(\cQ^\ell_{\cI^c}\right) > \delta\), 同时能取出
   参数\(\lambda > \frac{1}{ r(\mathcal{Q}^{(\ell)}_{\cI^c}) - 2\delta -\delta^2}\),
   使得
   \[\mu(\cX_\ell) +\sqrt{m}\delta\lambda \left[2m+(1+m)\delta \right] +\delta_1
   < \left(1-\sqrt{m}\delta\lambda(1+\delta)\right)\left(\min_{\cI\in \Omega_\ell}
   r(\cQ^{(\ell)}_{\cI^c})-\delta_1\right)\]
-  成立. 那么MT-SSC算法得到的解具有自表示性.
+  成立. 那么MT-SSC得到的解具有自表示性.
 \end{theorem}
 需要指出的是虽然在\autoref{thm:mt_SEP} 中\(m\)越大条件越不容易满足,
 但是这并不代表MT-SSC表现一定比SSC差. 只是MT-SSC相对SSC不等式放缩更难处理,

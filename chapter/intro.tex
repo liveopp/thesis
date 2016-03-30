@@ -6,10 +6,11 @@
 主成分分析(Principal component analysis, PCA), 它将数据投影到其方差最大的子空间上.
 从而降低维度.
 
-然而,很多实际问题产生的高维数据通常来自多个混合的低维线性子空间.
+然而,很多实际问题产生的高维数据来自多个混合的低维子空间.
 如\autoref{fig:Union_of_sub_model} 所示, 在没有噪音的情况下,
-数据点分布在一个平面和两条直线上, 所以数据在本质上来自三个低维的子空间.
-如果想更好地降低数据维度, 就必须找到每一个低维子空间,
+三维数据实际分布在一个平面和两条直线上,
+所以数据在本质上来自三个低维子空间.
+如果想更好地降低数据维度, 就必须找到每一个子空间,
 这要求我们将数据按照它们所属的子空间分割开来, 即子空间聚类.
 子空间聚类的应用非常广泛,包括运动轨迹分离~\cite{costeira1998multibody},
 人脸识别~\cite{basri2003lambertian},网络跳点计数~\cite{eriksson2011high},
@@ -87,7 +88,7 @@ Elhamifar等证明了在无噪音且子空间\(\cS_1, \cS_2, \ldots, \cS_L\)
 \eqref{eq:SSC} 的解\(c\)满足\eqref{eq:self_rep_1} ~\cite{elhamifar2013sparse}.
 Cand\`{e}s等证明了带噪音半随机模型下, 当点和子空间分布满足一定条件时,
 \(c\)有较大概率满足\eqref{eq:self_rep_1} ~\cite{soltanolkotabi2014robust} .
-注意,\eqref{eq:SSC} 和\eqref{eq:ssc_noise} 的约束\([c]_i = 0\) 是为了避免平凡解,
+注意 \eqref{eq:SSC} 和\eqref{eq:ssc_noise} 的约束\([c]_i = 0\) 是为了避免平凡解,
 即每个数据仅用它自己表示自己. 把\eqref{eq:ssc_noise} 写成矩阵的形式
 \begin{equation}
   \begin{gathered}
