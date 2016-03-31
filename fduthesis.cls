@@ -13,7 +13,8 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
 \LoadClass[a4paper,zihao=-4,linespread=1.38]{ctexbook} %%A4纸, 小四号, 行距20磅
-\pagestyle{plain} %% 去掉页眉
+\RequirePackage{emptypage}
+\pagestyle{plain}
 
 % Alter some LaTeX defaults for better treatment of figures:
 % See p.105 of "TeX Unbound" for suggested values.
@@ -109,7 +110,9 @@
 \def\algorithmautorefname{算法}
 
 %% 用来产生封面的命令
-\newcommand{\makefrontcover}[8]{\thispagestyle{empty} %% 去掉页码
+\newcommand{\makefrontcover}[8]{
+\begin{titlepage}
+\setcounter{page}{0}
 \begin{flushright}
   {
   \fontsize{9pt}{11pt}\selectfont
@@ -153,11 +156,14 @@
 	指\hspace{.5em}导\hspace{.5em}教\hspace{.5em}师：& #7 \\
 	完\hspace{.5em}成\hspace{.5em}日\hspace{.5em}期：& #8 \\
   \end{tabular}}
-\end{flushright}\newpage
+\end{flushright}
+\end{titlepage}
 }
 
 %% 产生扉页
-\newcommand{\makeheadpage}[3]{\thispagestyle{empty}
+\newcommand{\makeheadpage}[3]{
+\begin{titlepage}
+\vspace*{\fill}
   \begin{center}
     {\zihao{3}\bfseries 指\hspace{.5em}导\hspace{.5em}老\hspace{.5em}师:}\\
     \vspace{1cm}
@@ -168,7 +174,9 @@
     {\zihao{4}#2}\\
     \vspace{4mm}
     {\zihao{4}#3}\\
-  \end{center}\newpage
+  \end{center}
+\vspace*{\fill}
+\end{titlepage}
 }
 
 %% 用来产生封底的命令
