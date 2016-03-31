@@ -1,18 +1,18 @@
 \section{MT-SSC的理论分析}\label{sec:proof_multi}
 在分组结果正确的情况下,我们可以给出MT-SSC算法得到的邻接图没有错误连接
-的一个充分条件. 本节假设给定的指标集族\(\Omega\) 满足\eqref{eq:nosame},  
+的一个充分条件. 本节假设给定的指标集族\(\Omega\) 满足 \eqref{eq:nosame},   
 并且每个分组包含的点数都相同, 即\(|\cI|=m, \forall\, \cI \in \Omega\).
 
 证明的基本思路是: 假设某个分组\(\cI\)中的点都属于\(\cS_\ell\),
 那么我们考虑只用\(\cS_\ell\)中的点来表示\(X_\cI\), 这样得到的
-表示系数\(C\)自然没有错误. 然后再证明在一定条件下\(C\)就是\eqref{eq:multi} 
+表示系数\(C\)自然没有错误. 然后再证明在一定条件下\(C\)就是 \eqref{eq:multi} 
 的最优解.
 
 先定义一些概念,它们类似\cite{soltanolkotabi2012geometric}中的提法.
 \begin{definition}[投影对偶空间]\label{def:proj_dual_direction}
   给定矩阵\(A,B\)和子空间\(\cS\), 令\(N\) 为下面优化问题的最优解
   \begin{gather*}
-    \max_{N} \; \langle B, N \rangle - \|\frac{1}{2\lambda}\ N\|_F^2,\\
+    \max_{N} \; \langle B, N \rangle - \frac{1}{2\lambda}\|N\|_F^2,\\
     \text{s.t.}\quad \|N^T A\|_{2, \infty} \leq 1.
   \end{gather*}
   其中\(\|\cdot\|_{2,\infty}\)为矩阵每一列\(\ell_2\)范数的最大值.
@@ -45,7 +45,7 @@
 
 \begin{definition}[子空间自表示性]\label{def:lasso_detection}
   若对指标集 \(\cI\in \Omega\), 存在子空间\(\cS_\ell\)使得\(y_i\in \cS_\ell,\,
-  \forall i \in \cI\) ,优化问题\eqref{eq:multi} 的最优解\(C\) 满足：
+  \forall i \in \cI\) ,优化问题 \eqref{eq:multi} 的最优解\(C\) 满足：
   \begin{enumerate}
     \item \(C\) 不是零矩阵,即解非平凡,
     \item \(C\) 的行支撑集(不全为零的行的指标集)\(\cJ\subseteq \cI_\ell\)
@@ -78,19 +78,18 @@
 \end{figure}
 
 \subsection{自表示的一般性条件}
-我们不直接分析\eqref{eq:multi},   而是引入松弛变量\(E\), 将其转化为有约束的等价形式：
+我们不直接分析 \eqref{eq:multi},    而是引入松弛变量\(E\), 将其转化为有约束的等价形式：
 \begin{equation}\label{eq:Opt_original}
   \mathbf{P}_0:\quad \min_{C, E} \;
   \|C^T\|_{2,1}+\frac{\lambda}{2}\|E\|_F^2 \quad
   \text{s.t.} \quad X_\cI=X_{\cI\rightarrow 0}C+E.
 \end{equation}
-\eqref{eq:Opt_original} 的对偶问题为：
+ \eqref{eq:Opt_original} 的对偶问题为：
 \begin{equation}\label{eq:Opt_original_dual}
   \mathbf{D}_0:\quad \max_{N} \; \langle N, X_\cI\rangle -
   \frac{1}{2\lambda}\|N\|_F^2 \quad
   \text{s.t.} \quad \|N^T X_{\cI\rightarrow 0}\|_{2,\infty} \leq 1.
 \end{equation}
-
 先考虑一个一般的凸优化问题：
 \begin{equation}\label{eq:Opt_A_general}
   \quad \min_{C, E} \; \|C^T\|_{2,1}+\frac{\lambda}{2}\|E\|^2_F \quad
@@ -108,7 +107,7 @@
     \|N^T A_{\cT\cap \cJ^{c}}\|_{2, \infty} \leq 1, & \quad \|N^T A_{\cT^{c}}\|_{2, \infty}<1,
   \end{align*}
   其中 \(\norm(\cdot)\)是将矩阵的每一非零列归一化为单位向量,
-  则\eqref{eq:Opt_A_general} 的最优解\((C^{*},E^{*})\) 必然有
+  则 \eqref{eq:Opt_A_general} 的最优解\((C^{*},E^{*})\) 必然有
   \(C^*_{(\cT^c)}=\mathbf{0}\).
 \end{lemma}
 \begin{proof}
@@ -146,7 +145,7 @@
     \leq \|N^T A_{T\cap \cJ^{c}}\|_{2,\infty}\|(C^*)^T_{(\cT\cap
     \cJ^c)}\|_{2,1}. 
   \end{align*}
-  将其带入\eqref{eq:lemma_tmp1},   我们得到：
+  将其带入 \eqref{eq:lemma_tmp1},    我们得到：
   \begin{equation*}
     \|(C^*)^T\|_{2,1}+\frac{\lambda}{2} \|E^*\|^2_F \geq \|C^T\|_{2,1}+ \frac{\lambda}{2} 
     \|E\|_F^2 +(1-\|N^T A_{\cT^c}\|_{2, \infty})\|(C^*)^T_{(\cT^c)}\|_{2,1},
@@ -158,11 +157,11 @@
   因此 \(\|(C^*)^T_{(\cT^c)}\|_{2,1}=0\) 且 \((C,E)\) 也是最优解.
 \end{proof}
 
-因为\(\Omega\)满足\eqref{eq:nosame},   那么对\(\cI\in \Omega\),
-存在\(\cS_\ell\) 满足\(y_i \in \cS_\ell, \, \forall i \in \cI\). 
-若取\eqref{eq:Opt_A_general} 中的\(B=X_\cI, A=X_{\cI\rightarrow 0}, \cT=\cI_\ell\),
+因为\(\Omega\)满足 \eqref{eq:nosame},    那么对\(\cI\in \Omega\),
+存在\(\cS_\ell\) 满足\( \forall i \in \cI \, y_i \in \cS_\ell\). 
+若取 \eqref{eq:Opt_A_general} 中的\(B=X_\cI, A=X_{\cI\rightarrow 0}, \cT=\cI_\ell\),
 则如果能构造三元组\((C,E,N)\), 满足\autoref{lemma:OptimalCondition} 的条件,
-并且\(C_{(\cI_\ell^c)}=\mathbf{0}\). 那么\eqref{eq:Opt_original} 的最优解
+并且\(C_{(\cI_\ell^c)}=\mathbf{0}\), 那么 \eqref{eq:Opt_original} 的最优解\(C^*\)满足
 \(C^*_{(\cI_\ell^c)}=\mathbf{0}\), 再保证\(C^*\)非平凡(不全为零)就可得到自表示性.
 
 \subsection{构造三元组}\label{sec:construct_nu}
@@ -181,15 +180,15 @@
 因为\(\left\{y_i : \forall i \in \cI \right\}\subset \cS_\ell\),
 所以\(\bP_1\)相当于只用\(\cS_\ell\)中的数据来表示\(X_\cI\).
 
-\eqref{eq:Opt_fictitious2} 是有可行解的（我们只需要任取\(C_0\).
+ \eqref{eq:Opt_fictitious2} 是有可行解的（我们只需要任取\(C_0\).
 算出相应的\(E_0\), \((C_0, E_0)\)即为可行解), 因此由Slater条件\cite{boyd2004convex},
-\eqref{eq:Opt_fictitious2} 和\eqref{eq:dual_fictitious2} 强对偶,
-即\eqref{eq:Opt_fictitious2} 的最优解\((C, E)\)与\eqref{eq:dual_fictitious2} 最优解\(N\)满足
+ \eqref{eq:Opt_fictitious2} 和 \eqref{eq:dual_fictitious2} 强对偶,
+即 \eqref{eq:Opt_fictitious2} 的最优解\((C, E)\)与 \eqref{eq:dual_fictitious2} 最优解\(N\)满足
 \begin{align}\label{eq:strong_dual}
   \|C^T\|_{2,1}+\frac{\lambda}{2}\|E\|_F^2 = \langle X_\cI,N \rangle -
   \frac{1}{2\lambda} \|N\|_F^2   
 \end{align}
-将\(X_\cI=X^{(\ell)}_{\cI^c}C+E\)代入\eqref{eq:strong_dual},  稍加整理后得到
+将\(X_\cI=X^{(\ell)}_{\cI^c}C+E\)代入 \eqref{eq:strong_dual},   稍加整理后得到
 \[ \frac{1}{2}\| \sqrt{\lambda}E-\frac{1}{\sqrt{\lambda}}N \|_F^2+
 \|C^T\|_{2,1}-\langle C^T, N^T X^{(\ell)}_{\cI^c}\rangle = 0. \]
 设\(C\)的行支撑为\(\cJ\), 由\(\|N^T X^{(\ell)}_{\cI^c}\|_{2, \infty} \leq 1\),可得
@@ -200,7 +199,7 @@
 的表示系数, 所以我们将\(C\)按行扩充一些零向量得到\(C^*\)满足
 \[ C^*_{\cI_\ell \setminus \cI} = C, \quad C^*_{(i)} = \mathbf{0}
 \quad \forall i \in \cI^c_\ell \cup \cI. \]
-则\((C^*, E)\)是\eqref{eq:Opt_original} 的可行解, 同时三元组\((C^*, E, N)\)
+则\((C^*, E)\)是 \eqref{eq:Opt_original} 的可行解, 同时三元组\((C^*, E, N)\)
 满足了\autoref{lemma:OptimalCondition} 的条件, 除了
 \begin{equation*}
   \left\|N^T X_{\cI_\ell^c}\right\|_{2,\infty}<1,
@@ -210,7 +209,7 @@
    \left \| N^T x\right \|_2 < 1.
 \end{equation}
 这样根据\autoref{lemma:OptimalCondition} 我们得到的可行解\((C^*, E)\)
-就是\eqref{eq:Opt_original} 的最优解, 再保证\(C^*\)非平凡, 则自表示性成立.
+就是 \eqref{eq:Opt_original} 的最优解, 再保证\(C^*\)非平凡, 则自表示性成立.
 
 \subsection{对偶矩阵的限制}\label{sec:dual_separation}
 我们将 \(N\) 的每一列在子空间 \(\mathcal{S}_{\ell}\) 上投影,得到 \(N_{\parallel}
@@ -232,10 +231,10 @@
 \]
 
 \subsubsection{控制 \(\|N_{\parallel}\|_2\)}
-我们考察\(N\) 在\eqref{eq:dual_fictitious2} 中的可行区域：
+我们考察\(N\) 在 \eqref{eq:dual_fictitious2} 中的可行区域：
 \[\left\{N \middle| \|N^T X^{(\ell)}_{\cI^c}\|_{2,\infty} \leq 1\right\},\]
 等价于
-\[\left\{N \middle|\left \| N^T x_i\right\|_2 \leq 1 \quad \forall \, i \in \cI_\ell
+\[\left\{N \middle|\left \| N^T x_i\right\|_2 \leq 1 , \forall \, i \in \cI_\ell
 \setminus \cI \right\}.\]
 分解可得
 \[\| N_{\parallel}^T y_i+N_{\parallel}^T (\mathbb{P}_{\mathcal{S}_{\ell}}z_i)+
@@ -312,7 +311,7 @@ x_3\)分布在一个二维平面的单位球面上, 当它们分布均匀时, �
   因此得证.
 \end{proof}
 
-根据\eqref{eq:Geometric_dual},  \autoref{lemma:circum_inradius} 和\autoref{lemma:Y_containing_set},  
+根据 \eqref{eq:Geometric_dual},   \autoref{lemma:circum_inradius} 和\autoref{lemma:Y_containing_set},  
 我们可给出\(N_{\parallel}\)的上界：
 \begin{align}
   \|N_{\parallel}\|_2 \leq& \frac{1+\delta\|N_{\perp}\|_2}
@@ -328,7 +327,7 @@ x_3\)分布在一个二维平面的单位球面上, 当它们分布均匀时, �
 将 \(N\) 投影到 \(\cS^{\perp}_{\ell}\), 我们得到
 \(N_{\perp}=\lambda \P_{\cS_{\ell}^{\perp}}(X_\cI-X^{(\ell)}_{\cI^c}C)
 = \lambda \mathbb{P}_{\mathcal{S}_{\ell}^{\perp}}(Z_\cI-Z^{(\ell)}_{\cI^c}C)\).
-于是对任意\(y\in \R^d, \|y\|_2=1\)
+于是对任意\(y\in \R^d, \|y\|_2=1\) 有
 \begin{align}
   \|N_{\perp}^T y\|_2 & \leq\lambda \left(\|\mathbb{P}_{\mathcal{S}_{\ell}^{\perp}}Z_\cI\|_2
   +\|C^T (\mathbb{P}_{\mathcal{S}_{\ell}^{\perp}}Z^{(\ell)}_{\cI^c})^T y\|_2\right)\nonumber\\
@@ -340,14 +339,14 @@ x_3\)分布在一个二维平面的单位球面上, 当它们分布均匀时, �
 \end{align}
 其中\(\ty=(\mathbb{P}_{\mathcal{S}_{\ell}^{\perp}}Z^{(\ell)}_{\cI^c})^Ty\),
 而\(\|\ty\|_\infty \leq \|z_i\|_2 \|y\|_2 \leq
-\delta\). 由\eqref{eq:bounding_nu2_0} 得
+\delta\). 由 \eqref{eq:bounding_nu2_0} 得
 \begin{align}
   \|N_{\perp}\|_2 = \max_{\|y\|_2=1} \|N^T y\|_2 \le \lambda\delta\sqrt{m}(\Cgl+1).
   \label{eq:bounding_nu2}
 \end{align}
 
 下面我们给出 \(\Cgl\)的上界.
-因为 \((C,E)\) 是\eqref{eq:Opt_fictitious2} 的最优解,所以对任何可行解 \((\tC ,\tE)\)
+因为 \((C,E)\) 是 \eqref{eq:Opt_fictitious2} 的最优解,所以对任何可行解 \((\tC ,\tE)\)
 都有 \(\Cgl+\frac{\lambda}{2}\|E\|^2_F \leq \tCgl+\frac{\lambda}{2}\|\tilde{E}\|_F^2\).
 令 \(\tC\) 为下面无噪音优化问题的解
 \begin{align}\label{eq:Opt_y only}
@@ -375,7 +374,7 @@ Y^{(\ell)}_{\cI^c}\|_{2, \infty}\leq 1\right\}.\]
 \end{align}
 注意到 \(\frac{\lambda}{2}\|E\|_F^2=\frac{1}{2\lambda}\|N\|_F^2
 \geq\frac{1}{2\lambda}\|N_{\perp}\|_F^2 \geq\frac{1}{2\lambda}\|N_{\perp}\|_2^2\).
-将\eqref{eq:c_bound} 带入\eqref{eq:bounding_nu2} 得
+将 \eqref{eq:c_bound} 带入 \eqref{eq:bounding_nu2} 得
 \[\|N_{\perp}\|_2 \leq \lambda \delta \sqrt{m} 
 \left(\frac{m}{r(\mathcal{Q}_{\cI^c}^{(\ell)})}+\frac{\lambda}{2}\delta^2m
 \left[1+\frac{m}{r(\mathcal{Q}_{\cI^c}^{(\ell)})}\right]^2+1\right)
@@ -393,7 +392,7 @@ Y^{(\ell)}_{\cI^c}\|_{2, \infty}\leq 1\right\}.\]
 即我们需要的 \(\|N_{\perp}\|_2\) 的上界.
 
 \subsubsection{ \(\|N^T x\|_2<1\) 所需的条件}
-结合\eqref{eq:showing_dual_sep_cond}, \eqref{eq:nu1_bound} 和\eqref{eq:nu2_bound},   
+结合 \eqref{eq:showing_dual_sep_cond},  \eqref{eq:nu1_bound} 和 \eqref{eq:nu2_bound},    
 我们可以得出 \(\|N^T x\|_2\) 的上界：
 \begin{align*}
   \|N^T x\|_2 \leq& (\mu(\mathcal{X}_{\ell})+\|\mathbb{P}_{\mathcal{S}_{\ell}}z\|) 
@@ -427,12 +426,12 @@ Y^{(\ell)}_{\cI^c}\|_{2, \infty}\leq 1\right\}.\]
   {r{\left( \mathcal{Q}_{\cI^c}^{(\ell)}\right)}(r{\left( \mathcal{Q}_{\cI^c}^{(\ell)}\right)}-\delta_1)}
   < \frac{\rho (m+\delta)}{r{\left( \mathcal{Q}_{\cI^c}^{(\ell)}\right)}-\delta_1}.
 \end{align*}
-用上式化简\eqref{eq:dual_cond_full} 左边, 可得一个充分条件
+用上式化简 \eqref{eq:dual_cond_full} 左边, 可得一个充分条件
 \begin{equation}\label{eq:dual_cond_simp}
   \mu(\mathcal{X}_{\ell}) +\rho [2m+(1+m)\delta] +\delta_1
   < \left(1-\rho(1+\delta)\right)(r(\mathcal{Q}_{\cI^c}^{(\ell)})-\delta_1).
 \end{equation}
-把\eqref{eq:dual_cond_simp} 一般化到所有子空间的所有分组上,
+把 \eqref{eq:dual_cond_simp} 一般化到所有子空间的所有分组上,
 则必须对每个\(\ell = 1,...,L\) 成立：
 \begin{equation}\label{eq:Thm1_all}
   \mu(\mathcal{X}_{\ell}) +\rho [2m+(1+m)\delta] +\delta_1
@@ -444,7 +443,7 @@ Y^{(\ell)}_{\cI^c}\|_{2, \infty}\leq 1\right\}.\]
 足够大时, 平凡解 \((\mathbf{0}, X_\cI)\) 肯定不是最优解.
 
 \begin{lemma}\label{lemma:avoid_trivial}
-  对于\eqref{eq:Opt_A_general},  当 \(\lambda > \frac{1}{\max_{i,j} |A_i^T
+  对于 \eqref{eq:Opt_A_general},   当 \(\lambda > \frac{1}{\max_{i,j} |A_i^T
 B_j|}\) 时,其最优解一定是非平凡的.
 \end{lemma}
 \begin{proof}
@@ -463,7 +462,7 @@ B_j|}\) 时,其最优解一定是非平凡的.
   因此最优解一定非平凡.
 \end{proof}
 
-我们要求\eqref{eq:Opt_fictitious2} 的解非平凡, 因此需要考虑
+我们要求 \eqref{eq:Opt_fictitious2} 的解非平凡, 因此需要考虑
 \(\|[X_{\cI^c}^{(\ell)}]^T X_\cI \|_{\infty} \).
 设\(i, i_0\in \cI_\ell \setminus \cI, \, j, j_0\in
 \cI\), 且
@@ -486,13 +485,13 @@ y_i^T y_j=\left\|\left[ Y_{\cI^c}^{(\ell)}\right]^T Y_\cI\right\|_\infty ,
 \begin{equation}\label{eq:lambda_low}
   \lambda > \frac{1}{ r(\mathcal{Q}^{(\ell)}_{\cI^c}) - 2\delta - \delta^2},
 \end{equation}
-\eqref{eq:Opt_fictitious2} 的解就是非平凡的.
+ \eqref{eq:Opt_fictitious2} 的解就是非平凡的.
 
 \subsection{自表示定理}
 将上面几小节的内容总结一下可以得到MT-SSC的自表示定理
 \begin{theorem}\label{thm:mt_SEP}
   在带噪音的确定性模型下, 若给定指标集族\(\Omega\), 满足 \eqref{eq:nointer} 
-  \eqref{eq:full} 和 \eqref{eq:nosame}, 且\(|\cI|=m, \, \forall\, \cI \in \Omega\). 对任意\(\ell \in [L]\),
+ \eqref{eq:full} 和 \eqref{eq:nosame},  且\(|\cI|=m, \, \forall\, \cI \in \Omega\). 对任意\(\ell \in [L]\),
   若\(\mu(\cX_\ell)<1-\delta_1\), \(\min_{\cI\in
   \Omega_\ell} r\left(\cQ^\ell_{\cI^c}\right) > \delta\), 同时能取出
   参数\(\lambda > \frac{1}{ r(\mathcal{Q}^{(\ell)}_{\cI^c}) - 2\delta -\delta^2}\),

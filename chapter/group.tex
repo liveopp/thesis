@@ -2,19 +2,19 @@
 类似于MT-SSC,我们希望能得到G-SSC算法结果
 自表示的充分条件,简单起见,本节不考虑噪音.
 
-将\eqref{eq:group} 的限制条件去掉, 得到等价的优化问题
+将 \eqref{eq:group} 的限制条件去掉, 得到等价的优化问题
 \begin{equation} \label{eq:group_nost}
   \min_{c} \|c\|_{\Omega,1}+\frac{\lambda}{2} \|x_i-X_{\{i\}\rightarrow
 0}c\|_2^2,
 \end{equation}
-由于不考虑噪音,\eqref{eq:group_nost} 可以进一步简化为
+由于不考虑噪音, \eqref{eq:group_nost} 可以进一步简化为
 \begin{equation} \label{eq:group_nonoise}
     \min_{c} \|c\|_{\Omega,1} \quad\text{s.t.}\quad
     Y_{\{i\}\rightarrow 0} c=y_i
 \end{equation}
 我们使用$Y$和$y_i$表示无噪音的数据点.
 
-为了得到\eqref{eq:group_nonoise} 的自表示条件,先考虑一般的优化问题
+为了得到 \eqref{eq:group_nonoise} 的自表示条件,先考虑一般的优化问题
 \[
   \bP_2(b,A): \,\, \min_c\, \| c\|_{\Omega,1} \quad \text{s.t.}\quad Ac = b
 \]
@@ -29,7 +29,7 @@ $\max_{\cI \in \Omega} \|x_\cI\|_2$.
 类似于MT-SSC, 我们先对一般的优化问题 $\bP_2(b,A)$ 进行分析.
 \begin{lemma}\label{lem:prim_dual}
   给定矩阵$A\in\R^{d\times n}$, 向量$b\in \R^d$, 指标集$\cT\subseteq [n]$以及
-  指标集族$\Omega$满足\eqref{eq:nointer} 和\eqref{eq:full}, 
+  指标集族$\Omega$满足 \eqref{eq:nointer} 和 \eqref{eq:full},  
   且$\cT$是$\Omega$中某些指标集的并.
   若存在$c\in \R^n $使得$b = Ac$成立, $c$的支撑集$\cJ \subseteq \cT$,
   同时又存在$v\in\R^d$, 对$\forall \cI \in \Omega$有
@@ -44,7 +44,7 @@ $\max_{\cI \in \Omega} \|x_\cI\|_2$.
 \begin{proof}
   首先由于$\Omega$中的指标集两两交为空, 而$\cT$是$\Omega$中某些指标集的并, 
   所以对某个$\Omega$中的指标集$\cI$, 若$\cI \nsubseteq \cT$, 则
-  $\cI \cap \cJ\subseteq \cI \cap \cT =\emptyset $, 因此\eqref{eq:group_c1} 和\eqref{eq:group_c3} 
+  $\cI \cap \cJ\subseteq \cI \cap \cT =\emptyset $, 因此 \eqref{eq:group_c1} 和 \eqref{eq:group_c3} 
   的不会矛盾.
 
   对于最优解$c^*$, 我们有
@@ -58,18 +58,18 @@ $\max_{\cI \in \Omega} \|x_\cI\|_2$.
     \sum_{\cI \cap \cJ\neq \emptyset}\langle v, A_\cI(c^*_\cI-c_\cI)\rangle +
     \sum_{\cI \cap \cJ =\emptyset}\|c^*_\cI\|_2 \nonumber \\
     =& \sum_{\cI \cap \cJ\neq \emptyset}\|c_\cI\|_2 +
-    \sum_{\cI \cap \cJ = \emptyset} \left[\|c^*_\cI\|_2 -
-    \langle v, A_\cI c^*_\cI\rangle\right],\label{eq:group_low1}
+    \sum_{\cI \cap \cJ = \emptyset} \left(\|c^*_\cI\|_2 -
+    \langle v, A_\cI c^*_\cI\rangle\right),\label{eq:group_low1}
   \end{align}
   其中第一个不等号是因为$\|c^*_\cI\|_2 \ge \langle c_\cI/\|c_\cI\|_2,c^*_\cI\rangle$,
-  第一个等号直接带入\eqref{eq:group_c1} 可得,
+  第一个等号直接带入 \eqref{eq:group_c1} 可得,
   第二个等号是因为$c,c^*$满足$Ac=Ac^*=b$, 于是$\sum_{\cI\cap\cJ \neq
   \emptyset}A_\cI(c_\cI^*-c_\cI)=
   -\sum_{\cI \cap\cJ =\emptyset} A_\cI(c_\cI^*-c_\cI)$,
   而$c_{\cJ^c}=\mathbf{0}$, 所以带入可得. 由于
   $$\langle v, A_\cI c_\cI^*\rangle = \langle A_\cI^T v,
   c_\cI^*\rangle \le \|A_\cI^T v\|_2 \|c_\cI^*\|_2,$$
-  所以\eqref{eq:group_low1} 可以进一步放缩成
+  所以 \eqref{eq:group_low1} 可以进一步放缩成
   \begin{align}
     \|c^*\|_{\Omega, 1} \ge& \sum_{\cI \cap \cJ\neq \emptyset}\|c_\cI\|_2 +
     \sum_{\cI \cap \cJ = \emptyset} \left(1-\|A_\cI^T v\|_2\right)\|c^*_\cI\|_2 \nonumber \\
@@ -77,9 +77,9 @@ $\max_{\cI \in \Omega} \|x_\cI\|_2$.
     v\|_2\right)\|c^*_\cI\|_2,
     \label{eq:group_low2}
   \end{align}
-  其中用了\eqref{eq:group_c2}.  因为$c^*$是最优解,
+  其中用了 \eqref{eq:group_c2}.   因为$c^*$是最优解,
   所以$\|c^*\|_{\Omega,1}\le \|c\|_{\Omega, 1}$,
-  结合\eqref{eq:group_c3} 可得$c^*_\cI = \mathbf{0},\, \cI \nsubseteq \cT$.
+  结合 \eqref{eq:group_c3} 可得$c^*_\cI = \mathbf{0},\, \cI \nsubseteq \cT$.
 \end{proof}
 
 \subsection{自表示条件}
@@ -103,7 +103,7 @@ $\bP_2(y_i, Y_{\cI_\ell^c\cup \{i\}\rightarrow 0})$
 成立, 那么根据\autoref{lem:prim_dual},  $\bP_2(y_i, Y_{\{i\}\rightarrow 0})$
 的最优解$c^*$有$c^*_{\cI_\ell^c}=\mathbf{0}$, 即满足自表示性.
 
-我们把\eqref{eq:group_cond1} 写成等价形式
+我们把 \eqref{eq:group_cond1} 写成等价形式
 \begin{equation*}
   \left\|Y_\cI^T \frac{v}{\|v\|_2}\right\|_2 \|v\|_2<1,
 \end{equation*}
@@ -144,12 +144,12 @@ $$\{ v: \|Y^T_{\cI_\ell^c\cup \{i\}\rightarrow 0} v\|_{\Omega,\infty}\le
   \|b\|_{\Omega, 1}\le 1, b\in \R^n \right\},
 \end{equation*}
 则 $\|v\|_2 \le 1/r(\cQ_\Omega, \cS_\ell)$.
-因此,\eqref{eq:group_nonoise} 的解满足自表示性的充分条件为
+因此, \eqref{eq:group_nonoise} 的解满足自表示性的充分条件为
 \begin{equation} \label{eq:group_cond2}
   \left\|Y_\cI^T \frac{v}{\|v\|_2}\right\|_2 < r(\cQ_\Omega, \cS_\ell), \quad
   \cI \nsubseteq \cI_\ell, \forall\, \cI \in \Omega.
 \end{equation}
-如果我们把\eqref{eq:group_cond2} 和\cite[定理~2.5]{soltanolkotabi2012geometric}
+如果我们把 \eqref{eq:group_cond2} 和\cite[定理~2.5]{soltanolkotabi2012geometric}
 的条件$|\langle y_i, v/\|v\|_2\rangle|<r(\cQ^\ell_{-i}, \cS_\ell)$
-相比较可以发现,\eqref{eq:group_cond2} 的不等式左右两项都较大, 所以理论上很难
+相比较可以发现, \eqref{eq:group_cond2} 的不等式左右两项都较大, 所以理论上很难
 判断那种算法更好.

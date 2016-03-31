@@ -1,5 +1,5 @@
 \chapter{算法的理论分析}\label{chp:theory}
-本章将给出拓展最近邻算法, MT-SSC和G-SSC的理论分析, 尝试考察在什么条件算法能
+本章将给出拓展最近邻算法, MT-SSC和G-SSC的理论分析, 尝试考察在什么条件下算法能
 给出较好结果. 对拓展最近邻算法而言, 理想的结果是每个邻居集合中的点都属于同一个子空间;
 对MT-SSC和G-SSC而言, 理想的结果是生成的邻接图没有错误连接, 也就是
 每个点只用了和自身同一子空间的点表示. 算法正确与否和子空间之间的夹角, 
@@ -76,7 +76,7 @@ n_0:= n_1=\cdots=n_L\),且不考虑噪音.
   \label{eq:greedy_ineq}
 \end{equation}
 其中 \(y_k\) 为\(\ell_1\)类中在\(y_1\)上投影第\(k\)大的点.
-因此我们要得到\eqref{eq:greedy_ineq} 左边的下界和右边的上界.
+因此我们要得到 \eqref{eq:greedy_ineq} 左边的下界和右边的上界.
 
 \subsection{异类投影的上界}
 我们希望和\(y_1\)不同子空间的点\(y_j\)在\(y_1\)上的投影
@@ -178,7 +178,7 @@ n_0:= n_1=\cdots=n_L\),且不考虑噪音.
 
 \subsection{同类投影的下界}
 对于与\(y_1\)同类的点我们要考察第\(k\)大投影值的下界.
-\begin{lemma}[\cite{ball1997elementary}引理~2.2,2.3]\label{lem:spherical_cap}
+\begin{lemma}[\cite{ball1997elementary}引理~2.2, 2.3]\label{lem:spherical_cap}
   对 \(u \sim \Unif(\S^{d-1})\) 和任意固定的向量 \(a\),我们有
   \begin{equation*}
     \left( \frac{1-\varepsilon}{2} \right)^{\frac{d-1}{2}} \le
@@ -254,7 +254,7 @@ n_0:= n_1=\cdots=n_L\),且不考虑噪音.
       |w_1^T D_1^T D_{\ell_i}w_i| & \ell_i \ne \ell_1
     \end{cases}
   \end{align*}
-  所以\eqref{eq:cond} 的左边就是\(n_0-1\)个\(\S^{d_0-1}\)上的均匀采样点在
+  所以 \eqref{eq:cond} 的左边就是\(n_0-1\)个\(\S^{d_0-1}\)上的均匀采样点在
   \(w_1\)上投影的第\(k\)大值\(\alpha^{(k)}\),由于\(\maff\ge 0\), 所以\(\delta_1\)
   满足\autoref{lem:projbound_lower} 的条件, 有不小于\(1-\exp(-\delta_1)\)
   的概率
@@ -280,11 +280,11 @@ n_0:= n_1=\cdots=n_L\),且不考虑噪音.
     \right).
     \label{eq:right2}
   \end{align}
-  结合\eqref{eq:left}, \eqref{eq:right1} 和\eqref{eq:right2}, 即得证.
+  结合 \eqref{eq:left},  \eqref{eq:right1} 和 \eqref{eq:right2},  即得证.
 \end{proof}
 
 如果分组算法能给出正确的分组结果, 那么我们将得到指标集族\(\Omega\), 同时满足
-\eqref{eq:nointer}, \eqref{eq:full} 和
+ \eqref{eq:nointer},  \eqref{eq:full} 和
 \begin{equation}
   \forall\, \cI \in \Omega \ \text{存在唯一的子空间 \(\cS_\ell\) 使得}
   \left\{ y_i:i \in \cI \right\}\subset \cS_\ell. \label{eq:nosame}
@@ -297,4 +297,4 @@ n_0:= n_1=\cdots=n_L\),且不考虑噪音.
 \]
 即包含指标集都指向\(\cS_\ell\)中的点.
 \autoref{sec:proof_group} 和\autoref{sec:proof_group} 的分析都将基于
-满足\eqref{eq:nosame} 的\(\Omega\).
+满足 \eqref{eq:nosame} 的\(\Omega\).

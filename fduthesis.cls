@@ -41,9 +41,8 @@
 	right=3.17cm,
 	top=2.54cm,
 	bottom=2.54cm,
-%	footskip=0.79cm,
-%    headsep=0.25cm,
-%    headheight=1.5cm,
+    nohead,
+	footskip=0.79cm,
 %	showframe%uncomment this if you want to check the page setup.
 	]{geometry}
 \RequirePackage[numbers,sort&compress,square]{natbib}

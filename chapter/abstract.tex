@@ -1,16 +1,22 @@
 \begin{cnabstract}
-  子空间聚类是指将一群来自不同低维子空间的数据点按照它们
-  所属的空间分开,将同一空间的点聚成一类.本文在稀疏子空间聚类的基础上,
-  提出了基于多任务和组稀疏的新方法.
-  不同于稀疏子空间聚类方法直接将每个点用其他点
-  表示,我们先利用点的空间信息,将其分成一个个小组,每个小组作为
-  一个整体, 希望他们被同时表示,或者同时用来表示别的点.
-  这样既可以减少只使用一个点带来的不稳定,又能使随后生成的
+  在大数据时代, 我们面对海量高维数据, 它们来自图片、视频、文字、网页等等.
+  这些高维数据常常分布在多个混合的低维子空间中,
+  子空间聚类就是要将一群来自不同低维子空间的数据点按照它们
+  所属的空间分开, 将同一子空间的点聚成一类.
+  人们提出了很多子空间聚类方法, 目前公认表现最好的是稀疏子空间聚类
+  (Sparse subspace clustering, SSC). 本文在SSC的基础上,
+  拓展出了基于多任务和组稀疏的新方法.
+  SSC将每个数据点用其它点表示, 用表示系数构造邻接矩阵,
+  进而用谱聚类分割邻接图.
+  不同于SSC, 我们先利用点的局部信息, 将其分成一个个小组,
+  每个小组作为一个整体, 使它们被同时表示, 或同时用来表示其它点.
+  这样既可以减少只使用一个点带来的不稳定, 又能使随后生成的
   邻接图相对稠密, 正确连接较多, 从而提升聚类准确度.
   我们通过理论分析,得出新方法在一定条件下能够保证生成的邻接图
-  没有错误连接, 并在Hopkins 155和NUS-WIDE数据集上与经典子空间聚类方法比较.
+  没有错误连接, 并在Hopkins 155和NUS-WIDE数据集上与经典子空间聚类方法比较,
+  验证其有效性.
   
-  \keywords{子空间聚类\enskip 大数据\enskip 非监督学习\enskip 多任务\enskip 组稀疏}{O24}
+  \keywords{高维数据\enskip 子空间聚类\enskip 无监督学习\enskip 凸优化 \enskip 多任务\enskip 组稀疏}{O24}
 \end{cnabstract}
 
 \begin{enabstract}
@@ -25,6 +31,5 @@
   exact clustering performance can be guaranteed. We demonstrate
   the advantage of the framework on Hopkins 155 dataset and NUS-WIDE dataset.
 
-  \enkeywords{Subspace Clustering, Big Data, Unsupervised Learning, Group LASSO,
-  Multitasking}{O24}
+  \enkeywords{High-dimensional data, subspace clustering, unsupervised learning, convex programming, multitasking, group sparsity}{O24}
 \end{enabstract}
