@@ -13,7 +13,6 @@
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{ctexbook}}
 \ProcessOptions
 \LoadClass[a4paper,zihao=-4,linespread=1.38]{ctexbook} %%A4纸, 小四号, 行距20磅
-\RequirePackage{emptypage}
 \pagestyle{plain}
 
 % Alter some LaTeX defaults for better treatment of figures:

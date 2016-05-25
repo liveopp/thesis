@@ -167,7 +167,7 @@
 \subsection{构造三元组}\label{sec:construct_nu}
 为了构造满足条件的三元组,我们希望将表示系数限制在同类点上,于是考虑下面\emph{假想}
 \footnote{由于我们不知道每个点的类别,所以实际上无法求解这个问题,因此叫做``假想''}
-的优化问题及其对偶问题：
+的优化问题及其对偶问题:
 \begin{align}\label{eq:Opt_fictitious2}
   \bP_1: \quad &\min_{C, E} \;
   \|C^T\|_{2,1}+\frac{\lambda}{2}\|E\|_F^2 \quad
@@ -180,9 +180,9 @@
 因为\(\left\{y_i : \forall i \in \cI \right\}\subset \cS_\ell\),
 所以\(\bP_1\)相当于只用\(\cS_\ell\)中的数据来表示\(X_\cI\).
 
- \eqref{eq:Opt_fictitious2} 是有可行解的（我们只需要任取\(C_0\).
+\eqref{eq:Opt_fictitious2} 是有可行解的(我们只需要任取\(C_0\).
 算出相应的\(E_0\), \((C_0, E_0)\)即为可行解), 因此由Slater条件\cite{boyd2004convex},
- \eqref{eq:Opt_fictitious2} 和 \eqref{eq:dual_fictitious2} 强对偶,
+\eqref{eq:Opt_fictitious2} 和 \eqref{eq:dual_fictitious2} 强对偶,
 即 \eqref{eq:Opt_fictitious2} 的最优解\((C, E)\)与 \eqref{eq:dual_fictitious2} 最优解\(N\)满足
 \begin{align}\label{eq:strong_dual}
   \|C^T\|_{2,1}+\frac{\lambda}{2}\|E\|_F^2 = \langle X_\cI,N \rangle -
@@ -212,8 +212,8 @@
 就是 \eqref{eq:Opt_original} 的最优解, 再保证\(C^*\)非平凡, 则自表示性成立.
 
 \subsection{对偶矩阵的限制}\label{sec:dual_separation}
-我们将 \(N\) 的每一列在子空间 \(\mathcal{S}_{\ell}\) 上投影,得到 \(N_{\parallel}
-:=\mathbb{P}_{\cS_\ell}N\), \(N_{\perp} := \P_{\cS_{\ell}^\perp}N\),
+我们将 \(N\) 的每一列在子空间 \(\mathcal{S}_{\ell}\) 上投影,得到
+\(N_{\parallel}:=\mathbb{P}_{\cS_\ell}N\), \(N_{\perp} := \P_{\cS_{\ell}^\perp}N\),
 其中\(\cS_\ell^\perp\)是\(\cS_\ell\)的正交补空间. 因此
 \begin{align}\label{eq:showing_dual_sep_cond}
   \| N^T x \|_2 =& \| N^T (y+z)\|_2 \leq \| N_{\parallel}^T y\|_2+\|
@@ -311,8 +311,8 @@ x_3\)分布在一个二维平面的单位球面上, 当它们分布均匀时, �
   因此得证.
 \end{proof}
 
-根据 \eqref{eq:Geometric_dual},   \autoref{lemma:circum_inradius} 和\autoref{lemma:Y_containing_set},  
-我们可给出\(N_{\parallel}\)的上界：
+根据 \eqref{eq:Geometric_dual}, \autoref{lemma:circum_inradius} 和\autoref{lemma:Y_containing_set},  
+我们可给出\(N_{\parallel}\)的上界:
 \begin{align}
   \|N_{\parallel}\|_2 \leq& \frac{1+\delta\|N_{\perp}\|_2}
   {r(\mathcal{P}(Y_{\cI^c}^{(\ell)}+\mathbb{P}_{\mathcal{S}_{\ell}}(Z_{\cI^c}^{(\ell)}))}
@@ -340,10 +340,10 @@ x_3\)分布在一个二维平面的单位球面上, 当它们分布均匀时, �
 其中\(\ty=(\mathbb{P}_{\mathcal{S}_{\ell}^{\perp}}Z^{(\ell)}_{\cI^c})^Ty\),
 而\(\|\ty\|_\infty \leq \|z_i\|_2 \|y\|_2 \leq
 \delta\). 由 \eqref{eq:bounding_nu2_0} 得
-\begin{align}
+\begin{equation}
   \|N_{\perp}\|_2 = \max_{\|y\|_2=1} \|N^T y\|_2 \le \lambda\delta\sqrt{m}(\Cgl+1).
   \label{eq:bounding_nu2}
-\end{align}
+\end{equation}
 
 下面我们给出 \(\Cgl\)的上界.
 因为 \((C,E)\) 是 \eqref{eq:Opt_fictitious2} 的最优解,所以对任何可行解 \((\tC ,\tE)\)
@@ -389,7 +389,7 @@ Y^{(\ell)}_{\cI^c}\|_{2, \infty}\leq 1\right\}.\]
 \begin{equation}\label{eq:nu2_bound}
   \|N_{\perp}\|_2 \leq \lambda\delta\sqrt{m}\left(\frac{m}{r(\mathcal{Q}_{\cI^c}^{(\ell)})}+1\right),
 \end{equation}
-即我们需要的 \(\|N_{\perp}\|_2\) 的上界.
+即我们需要的\(\|N_{\perp}\|_2\)的上界.
 
 \subsubsection{ \(\|N^T x\|_2<1\) 所需的条件}
 结合 \eqref{eq:showing_dual_sep_cond},  \eqref{eq:nu1_bound} 和 \eqref{eq:nu2_bound},    
@@ -443,8 +443,8 @@ Y^{(\ell)}_{\cI^c}\|_{2, \infty}\leq 1\right\}.\]
 足够大时, 平凡解 \((\mathbf{0}, X_\cI)\) 肯定不是最优解.
 
 \begin{lemma}\label{lemma:avoid_trivial}
-  对于 \eqref{eq:Opt_A_general},   当 \(\lambda > \frac{1}{\max_{i,j} |A_i^T
-B_j|}\) 时,其最优解一定是非平凡的.
+  对于 \eqref{eq:Opt_A_general},当\(\lambda > \frac{1}{\max_{i,j} |A_i^T B_j|}\)时,
+  其最优解一定是非平凡的.
 \end{lemma}
 \begin{proof}
   我们只要说明存在一个非平凡解比平凡解更优即可. 设 \(i, j\) 为 \(|A_i^T
